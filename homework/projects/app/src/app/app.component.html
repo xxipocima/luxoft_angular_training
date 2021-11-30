@@ -482,4 +482,15 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <common-input></common-input>
 
+<appOnlyNumber [appOnlyNumber]="popover" title="Popover title">
+  Show popover
+  <ng-template #popover>
+    Wrong!!!
+  </ng-template>
+  <appOnlyEmail [appOnlyEmail]="popover" title="Popover title">
+  Show popover
+  <ng-template #popover>
+    Wrong!!!
+  </ng-template>
+
 <router-outlet></router-outlet>
