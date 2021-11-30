@@ -1,0 +1,27 @@
+{
+  "name": "common",
+  "version": "0.0.1",
+  "description": "This is a simple example Angular Library published to npm.",
+  "keywords" :["Angular","NewCommonLibrary"],
+  "license" : "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/xxipocima/luxoft_angular_training"
+  },
+  "homepage" :"https://github.com/xxipocima/",
+  "peerDependencies": {
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "scripts": {
+  "build_lib": "ng build ng-example-library",
+  "copy-license": "copy .\\LICENSE .\\dist\\ng-example-library",
+  "copy-readme": "copy .\\README.md .\\dist\\ng-example-library",
+  "copy-files": "npm run copy-license && npm run copy-readme",
+  "npm_pack": "cd dist/common && npm pack",
+  "package": "npm run build_lib && npm run copy-files && npm run npm_pack"
+  }
+}
