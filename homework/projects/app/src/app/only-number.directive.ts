@@ -16,8 +16,6 @@ import {OnlyNumberComponent} from "./only-number.component";
 })
 export class OnlyNumberDirective {
 
-  private regexStr = /[^0-9]*/g;
-
   @Input('appOnlyNumber') color: string;
   @Input('appOnlyNumber') popover: TemplateRef<any>;
   @Input() title: string;
@@ -35,7 +33,7 @@ export class OnlyNumberDirective {
 
   @HostListener('keyup')
   onKeyUp(): void {
-    this.el.nativeElement.style.borderColor = !this.isValid ? 'red' : 'initial';
+    this.el.nativeElement.style.borderColor = !this.isValid ? this.color : 'initial';
     if (this.isValid) {
       this.viewContainerRef.clear()
       this.componentRef = undefined;

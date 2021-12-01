@@ -12,10 +12,10 @@ import {Component, Input} from '@angular/core';
   ],
   template: `
       <div class="appOnlyEmail">
-         {{appOnlyEmailText}}
+         {{title}}
       </div>
    `
 })
 export class OnlyEmailComponent {
-  @Input() appOnlyEmailText: string;
+  @Input() title: string;
 }

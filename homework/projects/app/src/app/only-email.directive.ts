@@ -16,7 +16,7 @@ import {OnlyEmailComponent} from "./only-email.component";
 })
 export class OnlyEmailDirective {
 
-  private regexStr = /[^0-9]*/g;
+  private regexStr = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/g;
 
   @Input('appOnlyEmail') color: string;
   @Input('appOnlyEmail') popover: TemplateRef<any>;
@@ -33,30 +33,22 @@ export class OnlyEmailDirective {
   ) {
   }
 
-  @HostListener('keyup')
-  onKeyUp(): void {
-    this.el.nativeElement.style.borderColor = !this.isValid ? 'red' : 'initial';
-    if (this.isValid) {
-      this.viewContainerRef.clear()
-      this.componentRef = undefined;
-    } else {
+  @HostListener('input', ['$event']) onInputChange(event) {
+    const initalValue = this.el.nativeElement.value;
+    this.el.nativeElement.value = initalValue.replace(this.regexStr, '');
+    if ( initalValue !== this.el.nativeElement.value) {
       if (this.componentRef) {
         return;
       }
-      this.contentViewRef = this.popover.createEmbeddedView({});
-      const componentFactory = this.resolver.resolveComponentFactory(OnlyEmailComponent);
-      this.componentRef = this.viewContainerRef.createComponent(componentFactory, 0, this.injector, [this.contentViewRef.rootNodes]);
-      this.componentRef.instance.title = this.title;
-    }
-  }
-
-  @HostListener('keydown', ['$event'])
-  onKeyDown(event: any): void {
-    if (event.keyCode !== 8){
-      thid.isValid = !!Number(event.key);
-      is(!this.isValid){
-        event.preventDefault();
-      }
+      this.el.nativeElement.style.borderColor = !this.isValid ? this.color : 'initial';
+        this.contentViewRef = this.popover.createEmbeddedView({});
+        const componentFactory = this.resolver.resolveComponentFactory(OnlyEmailComponent);
+        this.componentRef = this.viewContainerRef.createComponent(componentFactory, 0, this.injector, [this.contentViewRef.rootNodes]);
+        this.componentRef.instance.title = this.title;
+      event.stopPropagation();
+    } else {
+      this.viewContainerRef.clear()
+      this.componentRef = undefined;
     }
   }
 }
